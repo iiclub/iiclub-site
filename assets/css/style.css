@@ -1,0 +1,10 @@
+/* span{
+  background-color: red;
+} */
+
+.fade-enter-active, .fade-leave-active{
+  transition: opacity 1s;
+}
+.fade-enter, .fade-leave{
+  opacity:0;
+}
