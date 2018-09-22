@@ -4,7 +4,7 @@ const Training = require("../model/Training");
 const TrainingRegistration = require("../model/TrainingRegistration");
 const Carousal = require("../model/carousal");
 
-const Testimonal = require("../model/Testimonal");
+const Testimonal = require("../model/testimonal");
 
 module.exports = {
     welcome(req,res){
