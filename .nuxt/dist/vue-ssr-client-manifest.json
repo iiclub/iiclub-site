@@ -89,16 +89,16 @@
     "pages/workshop/detail/users/index.e2a1f5dcae64ff9b97b2.js",
     "pages/workshop/detail/users/_id.fa27fa0af654515b30d5.js",
     "vendor.12ba1f81cb267d1713cf.js",
-    "app.835ee535587430eec149.js",
-    "manifest.986dfc273a7f6231c806.js",
+    "app.859bba8fe75fe912b0f8.js",
+    "manifest.1835975080479dd6debf.js",
     "LICENSES",
     "index.spa.html",
     "index.ssr.html"
   ],
   "initial": [
-    "manifest.986dfc273a7f6231c806.js",
+    "manifest.1835975080479dd6debf.js",
     "vendor.12ba1f81cb267d1713cf.js",
-    "app.835ee535587430eec149.js"
+    "app.859bba8fe75fe912b0f8.js"
   ],
   "async": [
     "pages/workshop/detail/_id.333ab20aa7db3558961a.js",

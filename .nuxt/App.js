@@ -23,7 +23,7 @@ let layouts = {
 let resolvedLayouts = {}
 
 export default {
-  head: {"title":"IICLUB - Home","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"Innovate for a better future of Humanity"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Fotherimages\u002Flogo ii.png"},{"rel":"stylesheet","href":"http:\u002F\u002Ffonts.googleapis.com\u002Fcss?family=Roboto:300,400,500,700|Material+Icons"}],"script":[{"src":"\u002Flib\u002Fsvg-with-js\u002Fjs\u002Ffontawesome-all.js"}],"style":[]},
+  head: {"title":"IICLUB - Home","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"Innovate for a better future of Humanity"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Fotherimages\u002Flogo ii.png"},{"rel":"stylesheet","href":"\u002F\u002Ffonts.googleapis.com\u002Fcss?family=Roboto:300,400,500,700|Material+Icons"}],"script":[{"src":"\u002Flib\u002Fsvg-with-js\u002Fjs\u002Ffontawesome-all.js"}],"style":[]},
   render(h, props) {
     const loadingEl = h('nuxt-loading', { ref: 'loading' })
     const layoutEl = h(this.layout || 'nuxt')
