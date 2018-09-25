@@ -54,6 +54,6 @@ module.exports = (appRouter) =>{
     appRouter.post("/frontoffice/training/register", FrontController.registerTraining);
 
     appRouter.get("/frontoffice/carousal/getcarousal", FrontController.getcarousal);
-    
+    appRouter.get("/frontoffice/gallery/getdata", FrontController.getGalleryData);
         
 };

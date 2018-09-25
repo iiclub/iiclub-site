@@ -3,6 +3,7 @@ const WorkshopRegistration = require("../model/workshopRegistration");
 const Training = require("../model/Training");
 const TrainingRegistration = require("../model/TrainingRegistration");
 const Carousal = require("../model/carousal");
+const Gallery = require("../model/gallery");
 
 const Testimonal = require("../model/testimonal");
 
@@ -354,6 +355,16 @@ module.exports = {
             });
         }).catch((err) =>{
         console.log("err ",err);
+            res.send({"response" : "error", "data" : err});
+        });
+    },
+    getGalleryData(req,res){
+        console.log("in getGalleryData")
+        Gallery.find({active : true}).then((data)=>{
+            console.log("data ",data)
+            res.send({"response" : "success", "data" : data});
+        }).catch((err) =>{
+            console.log("err ",err);
             res.send({"response" : "error", "data" : err});
         });
     }

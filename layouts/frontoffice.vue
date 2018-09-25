@@ -61,6 +61,7 @@
 
                 <v-btn flat class="hidden-xs-only" @click.stop="triggerRoute(items[2].path)">{{items[2].title}}</v-btn>
                 <v-btn flat class="hidden-xs-only" @click.stop="triggerRoute(items[3].path)">{{items[3].title}}</v-btn>
+                <v-btn flat class="hidden-xs-only" @click.stop="triggerRoute(items[4].path)">{{items[4].title}}</v-btn>
             </v-toolbar>
         </v-card>
         <!-- <v-breadcrumbs id="breadcrumb">
@@ -182,8 +183,8 @@
               { custom_id: "t_2_ocs", path:"/training/othercourses", title : "Other Courses" }
           ] },
           { custom_id: "w_3", path:"/workshop", title: 'WORKSHOP', items :[] },
-          { custom_id: "a_4", path:"/aboutus", title: 'ABOUT US' , items :[] }/* ,
-          { custom_id: "c_5", path:"/contactus", title: 'CONTACT US' , items :[] }, */
+          { custom_id: "a_4", path:"/aboutus", title: 'ABOUT US' , items :[] },
+          { custom_id: "g_5", path:"/gallery", title: 'Gallery' , items :[] }
         ],
         breadcrumbItems: [
           {
