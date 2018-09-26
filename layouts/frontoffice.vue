@@ -184,7 +184,7 @@
           ] },
           { custom_id: "w_3", path:"/workshop", title: 'WORKSHOP', items :[] },
           { custom_id: "a_4", path:"/aboutus", title: 'ABOUT US' , items :[] },
-          { custom_id: "g_5", path:"/gallery", title: 'Gallery' , items :[] }
+          { custom_id: "g_5", path:"/gallery", title: 'GALLERY' , items :[] }
         ],
         breadcrumbItems: [
           {
