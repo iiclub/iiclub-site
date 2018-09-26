@@ -113,8 +113,8 @@ export default (ctx, inject) => {
   const axiosOptions = {
     // baseURL
     baseURL : process.browser
-      ? 'http://iiclub.in'
-      : (process.env._AXIOS_BASE_URL_ || 'http://iiclub.in'),
+      ? 'http://www.iiclub.in'
+      : (process.env._AXIOS_BASE_URL_ || 'http://www.iiclub.in'),
 
     // Create fresh objects for all default header scopes
     // Axios creates only one which is shared across SSR requests!

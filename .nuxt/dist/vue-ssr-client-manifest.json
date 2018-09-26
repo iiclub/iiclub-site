@@ -67,7 +67,7 @@
     "pages/backoffice/carousal/add/index.27d544419de64a79a0b8.js",
     "pages/backoffice/aboutus/index.eadf3fb9126cc7c358c3.js",
     "pages/aboutus/index.fb0cdaca06745f702834.js",
-    "layouts/frontoffice.cf180e924eee05af5d07.js",
+    "layouts/frontoffice.0b57c42a9df96040e01f.js",
     "layouts/frontoffice - Copy.277bdda344fb05d76e67.js",
     "layouts/backoffice.a9ff3b33d236e35b0446.js",
     "pages/workshop/detail/users.4f380ffa4e5c8b82d718.js",
@@ -90,16 +90,16 @@
     "pages/workshop/detail/users/index.3555d85b31f4027759d0.js",
     "pages/workshop/detail/users/_id.625a6a05372dec077dc7.js",
     "vendor.748c1a166fa4bf0c2998.js",
-    "app.0217688f7804c8726b1b.js",
-    "manifest.942ca5ea02de8e682353.js",
+    "app.b8f8e44ec467f80964f1.js",
+    "manifest.d372741f3dfe3fc45f89.js",
     "LICENSES",
     "index.spa.html",
     "index.ssr.html"
   ],
   "initial": [
-    "manifest.942ca5ea02de8e682353.js",
+    "manifest.d372741f3dfe3fc45f89.js",
     "vendor.748c1a166fa4bf0c2998.js",
-    "app.0217688f7804c8726b1b.js"
+    "app.b8f8e44ec467f80964f1.js"
   ],
   "async": [
     "pages/gallery/index.6a6945d0c954b94e3391.js",
@@ -168,7 +168,7 @@
     "pages/backoffice/carousal/add/index.27d544419de64a79a0b8.js",
     "pages/backoffice/aboutus/index.eadf3fb9126cc7c358c3.js",
     "pages/aboutus/index.fb0cdaca06745f702834.js",
-    "layouts/frontoffice.cf180e924eee05af5d07.js",
+    "layouts/frontoffice.0b57c42a9df96040e01f.js",
     "layouts/frontoffice - Copy.277bdda344fb05d76e67.js",
     "layouts/backoffice.a9ff3b33d236e35b0446.js",
     "pages/workshop/detail/users.4f380ffa4e5c8b82d718.js",
