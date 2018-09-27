@@ -1,7 +1,7 @@
 {
   "publicPath": "/_nuxt/",
   "all": [
-    "pages/gallery/index.6a6945d0c954b94e3391.js",
+    "pages/gallery/index.5826c832b8a9393adc01.js",
     "pages/backofficelemon/workshop/index.93518f6cebca83bd104f.js",
     "pages/backoffice/workshop/index.db567fbb697b4bb177e5.js",
     "pages/backoffice/workshop/addworkshop/index.ee208582c042db6f4e06.js",
@@ -91,18 +91,18 @@
     "pages/workshop/detail/users/_id.625a6a05372dec077dc7.js",
     "vendor.748c1a166fa4bf0c2998.js",
     "app.b8f8e44ec467f80964f1.js",
-    "manifest.d372741f3dfe3fc45f89.js",
+    "manifest.3ec8d89a7b7a88d6c4a0.js",
     "LICENSES",
     "index.spa.html",
     "index.ssr.html"
   ],
   "initial": [
-    "manifest.d372741f3dfe3fc45f89.js",
+    "manifest.3ec8d89a7b7a88d6c4a0.js",
     "vendor.748c1a166fa4bf0c2998.js",
     "app.b8f8e44ec467f80964f1.js"
   ],
   "async": [
-    "pages/gallery/index.6a6945d0c954b94e3391.js",
+    "pages/gallery/index.5826c832b8a9393adc01.js",
     "pages/backofficelemon/workshop/index.93518f6cebca83bd104f.js",
     "pages/backoffice/workshop/index.db567fbb697b4bb177e5.js",
     "pages/backoffice/workshop/addworkshop/index.ee208582c042db6f4e06.js",

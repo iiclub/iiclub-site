@@ -96,9 +96,13 @@ export default {
     min-width: 350px;
     height: 300px;
     display: inline-block;
-    margin: 10px;
+    /* margin: 10px; */
     position: relative;
     text-align: center;
+}
+
+#gallerypage .gallerydata:not(:last-child){
+    margin-right:15px;
 }
 
 #gallerypage .gallerydata .galleryvideo {
