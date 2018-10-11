@@ -5,7 +5,7 @@
         <v-flex xs12 md6 offset-md3>
           <v-card color="green">
 
-            <v-card-media :src="imagepath" height="300px">
+            <v-card-media :src="base64Prefix+imagepath" height="300px">
               <v-layout column class="media">
                 <v-card-title class="white--text pl-5 pt-5">
                   <div class="display-1 pl-5 pt-5">{{title}}</div>
@@ -116,7 +116,9 @@ export default {
             startdate : null,
             starttime : null,
             imagepath : null,
-            registerPath : null
+            registerPath : null,
+            base64Prefix : 'data:image/png;base64,'
+
         }
     },   
     methods :{

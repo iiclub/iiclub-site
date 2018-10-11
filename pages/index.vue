@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-carousel dark delimiter-icon="stop">
-            <v-carousel-item v-for="(item,i) in dataItemCarousal" :src="item.src" :key="i" @click="carousalTrigger(item.redirectPath)"></v-carousel-item>
+            <v-carousel-item v-for="(item,i) in dataItemCarousal" :src="base64Prefix+item.src" :key="i" @click="carousalTrigger(item.redirectPath)"></v-carousel-item>
         </v-carousel>
         <v-layout column>
             <v-flex xs12 class="testimonals">
@@ -29,7 +29,8 @@ import Testimonal from '@/components/common/Testimonal.vue';
     }, 
     data () {
       return {
-        dataItem : null
+        dataItem : null,
+        base64Prefix : 'data:image/png;base64,'
       }
     },
     mounted () {

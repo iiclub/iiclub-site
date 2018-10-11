@@ -9,7 +9,7 @@
         grid-list-lg >
         <v-layout row wrap >
             <v-flex  sm12 xs12 v-for="(item,index) in items" :key="index">
-                <v-card  height="250" :img="item.imgsrc" color="blue-grey darken-2" class="white--text">
+                <v-card  height="250" :img="base64Prefix+item.imgsrc" color="blue-grey darken-2" class="white--text">
                 <v-card-title primary-title>
                     <div class="headline">{{item.title}}</div>
                 </v-card-title>
@@ -27,6 +27,11 @@
 <script>
 export default {
   props: ["items"],
+  data(){
+      return{
+          base64Prefix : 'data:image/png;base64,'
+      }
+  },
   methods :{
     details(path){
       console.log("in details: path ",path);

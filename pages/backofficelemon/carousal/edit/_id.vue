@@ -20,7 +20,7 @@
             </v-flex>
             <v-flex xs8>
                     <a :href="imagesList.path" target="_blank"> 
-                        <img :src="imagesList.path" alt="image not found" height="100" width="100" />
+                        <img :src="base64Prefix+imagesList.path" alt="image not found" height="100" width="100" />
                     </a>
             </v-flex>
         </v-layout>
@@ -65,13 +65,15 @@
       return {
         id: null,
         backofficelemon : "/backofficelemon/carousal/view",
-        imagesList : {}
+        imagesList : {},
+        base64Prefix : 'data:image/png;base64,'
       }
     },
     layout: "backoffice",
     methods:{
       update(){
         console.log("in update");
+        this.imagesList.path = "";
         console.log("imagesList ", this.imagesList); 
         var self = this;
         var apiurl="/backoffice/carousal/update";

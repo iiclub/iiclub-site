@@ -231,9 +231,9 @@
                         </div>
                         <br />
                         <div>
-                            <a :href="image.path" target="_blank"> 
-                                <img :src="image.path" alt="image not found" height="100" width="100" />
-                            </a>
+                            <!-- <a :href="image.path" target="_blank">  -->
+                                <img :src="base64Prefix+image.path" alt="image not found" height="100" width="100" />
+                            <!-- </a> -->
                         </div>
                          <br />
                          <v-btn color="red" dark @click="deleteImage(image._id)">Delete image</v-btn>
@@ -288,12 +288,23 @@ export default {
             modal2: false,
 
             activeListpage : false,
-            activeDetailspage : false
+            activeDetailspage : false,
+            base64Prefix : 'data:image/png;base64,'
+
         }
     },
     methods:{
         update(){
             var self = this;
+            var timagelist = this.imagesList.map((val,key)=>{
+          return {
+            "active" : val.active,
+            "listPage" : val.listPage,
+            "detailsPage" : val.detailsPage,
+            "_id" : val._id
+          }
+        })
+        
             var dataContent = {
                 title : this.title,
                 overview : this.overview,
@@ -303,7 +314,7 @@ export default {
                 otherdetails : this.otherdetails,
                 active : this.active,
                 id : this.id,
-                imagesList : this.imagesList,
+                imagesList : timagelist,
                 date : this.date,
                 time : this.time,
             };

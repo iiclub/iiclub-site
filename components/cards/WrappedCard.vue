@@ -12,7 +12,7 @@
     > 
       <v-layout row wrap> 
         <v-flex xs12 sm6 md4 lg3 v-for="(item,index) in items" :key="index">
-          <v-card color="blue-grey darken-2" class="white--text" :img="item.imgsrc">
+          <v-card color="blue-grey darken-2" class="white--text" :img="base64Prefix+item.imgsrc">
             <v-card-title primary-title>
               <div class="headline">{{item.title}}</div>
               <!-- <div>Listen to your favorite artists and albums whenever and wherever, online and offline.</div> -->
@@ -32,6 +32,11 @@
 <script>
 export default {
   props: ["items"],
+  data(){
+    return{
+      base64Prefix : 'data:image/png;base64,'
+    }
+  },
   methods :{
     details(path){
       console.log("in details: path ",path);

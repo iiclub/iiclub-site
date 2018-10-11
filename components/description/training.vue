@@ -8,7 +8,7 @@
             <!-- <v-card-media v-if="reqcontent.images !=null " :src="reqcontent.images[0].path" height="300px"> -->
 
 
-              <v-card-media  :src="reqcontent.imagesrc" height="300px">
+              <v-card-media  :src="base64Prefix+reqcontent.imagesrc" height="300px">
               
               <v-layout column class="media">
                 <v-card-title class="white--text pl-5 pt-5">
@@ -82,6 +82,7 @@ export default {
   data(){
     return{
       id : null,
+      base64Prefix : 'data:image/png;base64,',
       items: [
           {
             value: true,

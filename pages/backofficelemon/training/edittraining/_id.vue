@@ -170,7 +170,7 @@
                         <br />
                         <div>
                             <a :href="image.path" target="_blank"> 
-                                <img :src="image.path" alt="image not found" height="100" width="100" />
+                                <img :src="base64Prefix+image.path" alt="image not found" height="100" width="100" />
                             </a>
                         </div>
                          <br />
@@ -245,7 +245,8 @@
            'Arduino',
            'Other Courses',
         ],
-         imagesList : this.imagesList
+         imagesList : this.imagesList,
+         base64Prefix : 'data:image/png;base64,'
       }
     },
     layout: "backoffice",
@@ -256,7 +257,15 @@
       },
       update(){
         console.log("in update");
-
+        var timagelist = this.imagesList.map((val,key)=>{
+          return {
+            "active" : val.active,
+            "listPage" : val.listPage,
+            "detailsPage" : val.detailsPage,
+            "_id" : val._id
+          }
+        })
+        console.log("timagelist ",timagelist )
         var data = {
           id : this.id,
           name : this.etrainingname,
@@ -266,7 +275,7 @@
           kitcontents : this.kitcontents,
           duration : this.duration,
           finalcondition : this.finalcondition,
-          images: this.imagesList
+          images: timagelist
         };  
         console.log("data11 ", data);
         var self = this;

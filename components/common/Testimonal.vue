@@ -12,10 +12,15 @@
 <script>
 export default {
   props:["dataItemTestimonal"],
+  data(){
+      return{
+          base64Prefix : 'data:image/png;base64,'
+      }
+  },
   methods:{
       getTestimonalImage(src){
           return{
-              "background-image": 'url('+src+')'
+              "background-image": 'url('+this.base64Prefix+src+')'
           }
       }
   }

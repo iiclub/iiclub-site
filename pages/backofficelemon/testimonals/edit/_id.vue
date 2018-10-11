@@ -19,9 +19,9 @@
                 IMAGE
             </v-flex>
             <v-flex xs8>
-                    <a :href="imagesList.path" target="_blank"> 
-                        <img :src="imagesList.path" alt="image not found" height="100" width="100" />
-                    </a>
+                    <!-- <a :href="imagesList.path" target="_blank">  -->
+                        <img :src="base64Prefix+imagesList.path" alt="image not found" height="100" width="100" />
+                    <!-- </a> -->
             </v-flex>
         </v-layout>
 
@@ -53,14 +53,16 @@
     data () {
       return {
         id: null,
-        imagesList : {}
+        imagesList : {},
+        base64Prefix : 'data:image/png;base64,'
       }
     },
     layout: "backoffice",
     methods:{
       update(){
         console.log("in update");
-        console.log("imagesList ", this.imagesList); 
+        console.log("imagesList ", this.imagesList);
+        this.imagesList.path = ""; 
         var self = this;
         this.$axios.$post("/backoffice/testimonal/update", this.imagesList)
         .then(function (response) {
