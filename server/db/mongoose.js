@@ -5,7 +5,7 @@ mongoose.Promise = global.Promise;
 //var uri = "mongodb://divine:123456@localhost/home";
 //var uri = "mongodb://localhost/iiclub";
 var uri = "mongodb://iiclub:parveziot123@ds117362.mlab.com:17362/iiclub";
-var promise = mongoose.connect(uri);
+var promise = mongoose.connect(uri, { useNewUrlParser: true });
 mongoose.connection
 .once("open",() => {
     console.log("MongoDB connected");

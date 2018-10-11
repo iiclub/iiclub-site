@@ -10,11 +10,6 @@ const bodyParser = require("body-parser");
 const router = require("./routes/routes");
 const path = require("path");
 
-const Training = require("./model/Training");
-const TrainingRegistration = require("./model/TrainingRegistration");
-
-const Carousal = require("./model/carousal");
-
 global.appRoot = path.resolve(__dirname);
 app.set('port', port)
 console.log("appRoot ",appRoot);

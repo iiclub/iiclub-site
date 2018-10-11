@@ -14,27 +14,28 @@ module.exports = (appRouter) =>{
     appRouter.post("/backoffice/workshop/edit", BackController.editWorkshopPost);
     appRouter.get("/backoffice/workshop/delete", BackController.deleteWorkshop);
     appRouter.get("/backoffice/workshop/deleteimage", BackController.deleteImage);
-    appRouter.post("/backoffice/workshop/uploadImage", BackController.uploadImage);
+    appRouter.post("/backoffice/workshop/uploadImage", upload.array('myimage', 2),BackController.uploadImage);
 
     
     appRouter.post("/backoffice/training/add", BackController.addtraining);
     appRouter.get("/backoffice/training/view", BackController.viewtraining);
-    appRouter.post("/backoffice/training/uploadImage", BackController.uploadTrainingImage);
+    appRouter.post("/backoffice/training/uploadImage", upload.array('myimage', 2),BackController.uploadTrainingImage);
     appRouter.get("/backoffice/training/edit", BackController.editTrainingGet);
     appRouter.get("/backoffice/training/delete", BackController.deleteTraining);
     appRouter.post("/backoffice/training/edit", BackController.editTraining);
     appRouter.get("/backoffice/training/deleteimage", BackController.deleteTrainingImage);
     
 
-
-    appRouter.post("/backoffice/carousal/addimage", BackController.addCarousal);
+    //upload.array('myimage', 12)
+    //appRouter.post("/backoffice/carousal/addimage", BackController.addCarousal);
+    appRouter.post("/backoffice/carousal/addimage", upload.array('myimage', 1),BackController.addCarousal);
     appRouter.get("/backoffice/carousal/viewimage", BackController.viewCarousal);
     appRouter.get("/backoffice/carousal/editcarousalget", BackController.editcarousalget);
     appRouter.post("/backoffice/carousal/update", BackController.updateCarousal);
     appRouter.get("/backoffice/carousal/delete", BackController.deleteCarousal);
 
 
-    appRouter.post("/backoffice/testimonal/addimage", BackController.addTestimonal);
+    appRouter.post("/backoffice/testimonal/addimage",upload.array('myimage', 1), BackController.addTestimonal);
     appRouter.get("/backoffice/testimonal/viewimage", BackController.viewTestimonal);
     appRouter.get("/backoffice/testimonal/editcarousalget", BackController.edittestimonalget);
     appRouter.post("/backoffice/testimonal/update", BackController.updateTestimonal);

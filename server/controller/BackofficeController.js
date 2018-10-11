@@ -7,40 +7,49 @@ const TrainingRegistration = require("../model/TrainingRegistration");
 const WorkshopRegistration = require("../model/workshopRegistration");
 const Testimonal = require("../model/testimonal");
 
+const getImageBase64 = function(req){
+    const imageFiles = req.files;
+    console.log("imageFiles length ",imageFiles.length)
+    let base64data = null;
+    for(let i=0;i<imageFiles.length;i++){
+        let buff = new Buffer(imageFiles[i].buffer)
+        base64data =buff.toString('base64');
+    }
+    return base64data;
+};
+const getImageBase64Array = function(req){
+    const imageFiles = req.files;
+    console.log("imageFiles length ",imageFiles.length)
+    let base64data = [];
+    for(let i=0;i<imageFiles.length;i++){
+        let buff = new Buffer(imageFiles[i].buffer)
+        base64data.push({"path" : buff.toString('base64')});
+    }
+    return base64data;
+};
 
 module.exports = {
     welcome(req,res){
         console.log("default route invoked via get for backofficecontroller");
         res.send({"hi":"welcome back"});
     },
+    
     addCarousal(req,res){
         console.log("in addCarousal method");
         var imageStorePath = "carousal";
-        const multerUpload = multerconfig.upload(imageStorePath);
-        multerUpload(req,res,(err)=>{
-            console.log("called multerObject.upload ");
-            if(err){
-                console.log("err:: ",err);
-                res.send({"res":"in addCarousal error"});
-            }
-            else{
-                var imagePath = "/upload/"+imageStorePath+"/"+req.file.filename;
-                var redirectPath = req.body.redirectpath;
-                console.log("imagePath ",imagePath);
-                console.log("redirectPath ",redirectPath);
+        //this.getImageBase64();
+        const imageData = getImageBase64(req);
 
-                var carousal = new Carousal({
-                    imagePath : imagePath,
-                    redirectPath : redirectPath
-                });
-                carousal.save().then((result)=>{
-                    console.log("result: ",result);
-                    res.send({"res":"in addCarousal success"});
-                }).catch((err)=>{
-                    res.send({"err":err});
-                }); 
-            }
+        var carousal = new Carousal({
+            path : imageData,
+            redirectPath : ""
         });
+        carousal.save().then((result)=>{
+            console.log("result: ",result);
+            res.send({"res":"in addCarousal success"});
+        }).catch((err)=>{
+            res.send({"err":err});
+        }); 
     },
     addWorkshop(req,res){
         console.log("in method addWorkshop req.body ");
@@ -166,28 +175,40 @@ module.exports = {
         const date = req.body.date;
         const time = req.body.time;
 
-        console.log(req.body);
+        Workshop.findOne({ _id: id }).then((data) =>{
+            //console.log("data ",data)
+            data.images.forEach((val,key)=>{
+                for(let q=0;q<imagesList.length;q++){
+                    if(val._id == imagesList[q]._id){
+                        imagesList[q].path = val.path;
+                    }
+                }
+            })
+            var content = {
+                title : title,
+                overview: overview,
+                sessionplan:sessionplan,
+                dateduration:dateduration,
+                feedetails:feedetails,
+                otherdetails:otherdetails,
+                active : active,
+                startdate : date,
+                starttime : time,
+                images : imagesList
+            };
 
-        var content = {
-            title : title,
-            overview: overview,
-            sessionplan:sessionplan,
-            dateduration:dateduration,
-            feedetails:feedetails,
-            otherdetails:otherdetails,
-            active : active,
-            startdate : date,
-            starttime : time,
-            images : imagesList
-        };
+            Workshop.findByIdAndUpdate(id,content,{new: true})
+            .then((data) =>{
+                console.log("update success data ");
+                res.send({"response" : "success", "data" : data,"req.body" : req.body});
+            }).catch((err) =>{
+                console.log("update success err ");
+                res.send({"response" : "error", "data" : err,"req.body" : req.body});
+            });
 
-        Workshop.findByIdAndUpdate(id,content,{new: true})
-        .then((data) =>{
-            console.log("update success data ");
-            res.send({"response" : "success", "data" : data,"req.body" : req.body});
-        }).catch((err) =>{
-            console.log("update success err ");
-            res.send({"response" : "error", "data" : err,"req.body" : req.body});
+        }).catch((err)=>{
+            console.log("find failed ",err);
+            res.send({"response" : "error"});
         });
     },
     deleteWorkshop(req,res){
@@ -204,26 +225,12 @@ module.exports = {
         console.log("in deleteImage method req.query ",req.query);
         var id = req.query.id;
         var imageid = req.query.imageid;
-        
-        var staticPath = appRoot+'/../static';
-        console.log("staticPath ",staticPath);
-
         Workshop.findOne({ _id: id }).then((data)=>{
-            
             var index = data.images.findIndex((image) => {
                 return image._id.toString() == imageid;
             });
-            console.log("data images: ",data.images[index].path);
-            fs.unlink(staticPath+data.images[index].path, (err) => {
-                if (err){
-                    console.log('error while unlinking file ',err);
-                }
-                else{
-                    console.log('file deleted successfully');
-                    data.images[index].remove();
-                    return data.save();
-                }
-            }); 
+            data.images[index].remove();
+            return data.save();
         }).then((data2) =>{
             res.send({"response" : "success","data" : data2});
             //res.send({"response" : "success"});
@@ -235,43 +242,21 @@ module.exports = {
     uploadImage(req,res){
         console.log("in uploadImage method ");
 
-        var imageStorePath = "workshop";
-        const multerUpload = multerconfig.upload(imageStorePath);
-        multerUpload(req,res,(err)=>{
-            console.log("inside multerUpload ");
-            if(err){
-                console.log("err:: ",err);
-                res.send({"res":"in bo error"});
+        var myid = req.body.id;
+        const imageData = getImageBase64Array(req);
+        
+        Workshop.findOne({ _id: myid }).then((data) =>{
+            for(var i=0;i<imageData.length;i++){
+                data.images.push(imageData[i]);
             }
-            else{
-                var staticPath = '/upload/'+imageStorePath+'/';
-                var imageArray=[];
-                req.files.forEach((element,index) => {
-                    console.log("staticPath ",(staticPath+element.filename));
-                    imageArray.push({path : (staticPath+element.filename)});
-                });
-                console.log("imageArray ",imageArray);
-                var myid = req.body.id;
-                console.log("myid ",myid);
-
-                Workshop.findOne({ _id: myid }).then((data) =>{
-
-                    for(var i=0;i<imageArray.length;i++){
-                        data.images.push(imageArray[i]);
-                    }
-                    return data.save();
-                }).then((data2) =>{
-                    console.log("save success");
-                    res.send({"response" : "success","data" : data2});
-                }).catch((err)=>{
-                    console.log("save failed ",err);
-                    res.send({"response" : "error"});
-                });
-
-
-            }
+            return data.save();
+        }).then((data2) =>{
+            console.log("save success");
+            res.send({"response" : "success","data" : data2});
+        }).catch((err)=>{
+            console.log("save failed ",err);
+            res.send({"response" : "error"});
         });
-
     },
 
     addtraining(req,res){
@@ -313,45 +298,23 @@ module.exports = {
     },
     uploadTrainingImage(req,res){
         console.log("in uploadTrainingImage ");
-
-
-        var imageStorePath = "training";
-        const multerUpload = multerconfig.upload(imageStorePath);
-        multerUpload(req,res,(err)=>{
-            console.log("inside multerUpload ");
-            if(err){
-                console.log("err:: ",err);
-                res.send({"res":"in bo error"});
+        var myid = req.body.id;
+        const imageData = getImageBase64Array(req);
+        //console.log("327 imageData ",imageData.path)
+        Training.findOne({ _id: myid }).then((data) =>{
+            console.log("data ",data)
+            for(var i=0;i<imageData.length;i++){
+                data.images.push(imageData[i]);
             }
-            else{
-                var staticPath = '/upload/'+imageStorePath+'/';
-                var imageArray=[];
-                req.files.forEach((element,index) => {
-                    console.log("staticPath ",(staticPath+element.filename));
-                    imageArray.push({path : (staticPath+element.filename),active : false});
-                });
-                console.log("imageArray ",imageArray);
-                var myid = req.body.id;
-                console.log("myid ",myid);
-
-                Training.findOne({ _id: myid }).then((data) =>{
-
-                    for(var i=0;i<imageArray.length;i++){
-                        data.images.push(imageArray[i]);
-                    }
-                    return data.save();
-                }).then((data2) =>{
-                    console.log("save success");
-                    res.send({"response" : "success","data" : data2});
-                }).catch((err)=>{
-                    console.log("save failed ",err);
-                    res.send({"response" : "error"});
-                });
-
-
-            }
+               //data.images.push({path : "hey",active : true});
+            return data.save();
+        }).then((data2) =>{
+            console.log("save success");
+            res.send({"response" : "success","data" : data2});
+        }).catch((err)=>{
+            console.log("save failed ",err);
+            res.send({"response" : "error"});
         });
-
     },
     editTrainingGet(req,res){
         console.log("in editTrainingGet method ");
@@ -377,7 +340,7 @@ module.exports = {
         })   
     },
     editTraining(req,res){
-        console.log("in editTraining method ",req.body);
+        //console.log("in editTraining method ",req.body);
 
         var id = req.body.id;
         var name =  req.body.name;
@@ -388,8 +351,33 @@ module.exports = {
         var duration =  req.body.duration;
         var finalcondition =  req.body.finalcondition;
         var images =  req.body.images;
-        var content = {name,level,overview,topic, kitcontents, duration,finalcondition,images};
+        
+        Training.findOne({ _id: id }).then((data) =>{
+            //console.log("data ",data)
+            data.images.forEach((val,key)=>{
+                for(let q=0;q<images.length;q++){
+                    if(val._id == images[q]._id){
+                        images[q].path = val.path;
+                    }
+                }
+            })
+            var content = {name,level,overview,topic, kitcontents, duration,finalcondition,images};
 
+            Training.findByIdAndUpdate(id,content,{new: true})
+            .then((data) =>{
+                console.log("update success data ");
+                res.send({"response" : "success", "data" : data,"req.body" : req.body});
+            }).catch((err) =>{
+                console.log("update success err ");
+                res.send({"response" : "error", "data" : err,"req.body" : req.body});
+            }); 
+
+        }).catch((err)=>{
+            console.log("find failed ",err);
+            res.send({"response" : "error"});
+        });
+
+/*
         //res.send({"response" : "success"});
         Training.findByIdAndUpdate(id,content,{new: true})
         .then((data) =>{
@@ -399,34 +387,20 @@ module.exports = {
             console.log("update success err ");
             res.send({"response" : "error", "data" : err,"req.body" : req.body});
         }); 
+        */
     },
     deleteTrainingImage(req,res){
         console.log("in deleteTrainingImage method ");
-
-
         console.log("in deleteImage method req.query ",req.query);
         var id = req.query.id;
         var imageid = req.query.imageid;
-        
-        var staticPath = appRoot+'/../static';
-        console.log("staticPath ",staticPath);
 
         Training.findOne({ _id: id }).then((data)=>{
-            
             var index = data.images.findIndex((image) => {
                 return image._id.toString() == imageid;
             });
-            console.log("data images: ",data.images[index].path);
-            fs.unlink(staticPath+data.images[index].path, (err) => {
-                if (err){
-                    console.log('error while unlinking file ',err);
-                }
-                else{
-                    console.log('file deleted successfully');
-                    data.images[index].remove();
+            data.images[index].remove();
                     return data.save();
-                }
-            }); 
         }).then((data2) =>{
             res.send({"response" : "success","data" : data2});
             //res.send({"response" : "success"});
@@ -435,45 +409,6 @@ module.exports = {
             res.send({"response" : "error"});
         });
 
-
-    },
-    addCarousal(req,res){
-        console.log("in addCarousal ");
-        
-
-        var imageStorePath = "carousal";
-        const multerUpload = multerconfig.upload(imageStorePath);
-        multerUpload(req,res,(err)=>{
-            console.log("inside multerUpload ");
-            if(err){
-                console.log("err:: ",err);
-                res.send({"res":"in bo error"});
-            }
-            else {
-                var staticPath = '/upload/'+imageStorePath+'/';
-                var imageArray=[];
-                req.files.forEach((element,index) => {
-                    console.log("staticPath ",(staticPath+element.filename));
-                    imageArray.push({path : (staticPath+element.filename),active : false});
-                });
-                console.log("imageArray ",imageArray);
-
-                var addCarousal;
-                if(imageArray.length >0){
-                    imageArray.forEach((singleele,index) =>{
-                        console.log("singleele ",singleele);
-                        addCarousal = null;
-                        addCarousal = new Carousal(singleele);
-                        addCarousal.save().then((data) =>{
-                            console.log("save success data",data);
-                        }).catch((err)=>{
-                            console.log("save failed ",err);
-                        });
-                    });
-                    res.send({"response" : "success"});
-                } 
-            }
-        });
 
     },
     viewCarousal(req,res){
@@ -506,7 +441,8 @@ module.exports = {
         var active = req.body.active;
         var path = req.body.path;
         var redirectPath = req.body.redirectPath;
-        var content = {active : active,path : path, redirectPath : redirectPath};
+        //var content = {active : active,path : path, redirectPath : redirectPath};
+        var content = {active : active, redirectPath : redirectPath};
         
         console.log("content ",content);
         
@@ -527,16 +463,8 @@ module.exports = {
 
         Carousal.findOne({ _id: id }).then((data)=>{
             console.log("data images: ",data.path);
-            fs.unlink(staticPath+data.path, (err) => {
-                if (err){
-                    console.log('error while unlinking file ',err);
-                }
-                else{
-                    console.log('file deleted successfully');
-                    data.remove();
-                    return data.save();
-                }
-            }); 
+            data.remove();
+            return data.save();
         }).then((data2) =>{
             res.send({"response" : "success","data" : data2});
         }).catch((err)=>{
@@ -546,40 +474,16 @@ module.exports = {
     },
     addTestimonal(req,res){
         console.log("in addTestimonal ");
-        
-
-        var imageStorePath = "testimonals";
-        const multerUpload = multerconfig.upload(imageStorePath);
-        multerUpload(req,res,(err)=>{
-            console.log("inside multerUpload ");
-            if(err){
-                console.log("err:: ",err);
-                res.send({"res":"in bo error"});
-            }
-            else {
-                var staticPath = '/upload/'+imageStorePath+'/';
-                var imageArray=[];
-                req.files.forEach((element,index) => {
-                    console.log("staticPath ",(staticPath+element.filename));
-                    imageArray.push({path : (staticPath+element.filename),active : false});
-                });
-                console.log("imageArray ",imageArray);
-
-                var addTestimonal;
-                if(imageArray.length >0){
-                    imageArray.forEach((singleele,index) =>{
-                        console.log("singleele ",singleele);
-                        addTestimonal = null;
-                        addTestimonal = new Testimonal(singleele);
-                        addTestimonal.save().then((data) =>{
-                            console.log("save success data",data);
-                        }).catch((err)=>{
-                            console.log("save failed ",err);
-                        });
-                    });
-                    res.send({"response" : "success"});
-                } 
-            }
+        const imageData = getImageBase64(req);
+        var addTestimonal = new Testimonal({
+            path : imageData
+        });
+        addTestimonal.save().then((data) =>{
+            console.log("save success data",data);
+            res.send({"response" : "success"});
+        }).catch((err)=>{
+            console.log("save failed ",err);
+            res.send({"response" : "error"});
         });
     },
     viewTestimonal(req,res){
@@ -629,16 +533,8 @@ module.exports = {
 
         Testimonal.findOne({ _id: id }).then((data)=>{
             console.log("data images: ",data.path);
-            fs.unlink(staticPath+data.path, (err) => {
-                if (err){
-                    console.log('error while unlinking file ',err);
-                }
-                else{
-                    console.log('file deleted successfully');
-                    data.remove();
-                    return data.save();
-                }
-            }); 
+            data.remove();
+            return data.save();
         }).then((data2) =>{
             res.send({"response" : "success","data" : data2});
         }).catch((err)=>{
