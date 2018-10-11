@@ -31,7 +31,7 @@
                 ></v-text-field>
             </v-flex>
         </v-layout>
-        <hr>
+        <!-- <hr>
         <v-layout row>
             <v-flex xs4>
                 <v-subheader class="grey--text text--lighten-1">Select image to upload</v-subheader>
@@ -39,7 +39,7 @@
             <v-flex xs8>
                 <input type="file" name="fileToUpload[]" id="fileToUpload" multiple>
             </v-flex>
-        </v-layout>
+        </v-layout> -->
 
         <hr>
         <v-layout row>
@@ -271,11 +271,11 @@ export default {
             console.log("in submit active " , this.active);
             var self = this;
             var formData = new FormData();
-            var imagefile = document.querySelector('#fileToUpload');
-            for(var i=0;i<imagefile.files.length;i++) {
-                console.log("index ",i);
-                formData.append("myimage", imagefile.files[i]);  
-            } 
+            // var imagefile = document.querySelector('#fileToUpload');
+            // for(var i=0;i<imagefile.files.length;i++) {
+            //     console.log("index ",i);
+            //     formData.append("myimage", imagefile.files[i]);  
+            // } 
 
             formData.append("title", this.title);
             formData.append("overview", this.overview);
