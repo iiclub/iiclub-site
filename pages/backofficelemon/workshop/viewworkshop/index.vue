@@ -13,7 +13,9 @@
                             <v-list-tile-sub-title v-html="'Active - '+content.active"></v-list-tile-sub-title>
                             <div class="text-xs-center">
                                 <v-btn color="Primary" @click="triggerEdit(content._id)">Edit / Delete</v-btn>
-                                <v-btn color="Primary" @click="addImage(content._id)">Add Image</v-btn>
+                                <span v-if="!content.path"> 
+                                    <v-btn color="Primary" @click="addImage(content._id)">Add Image</v-btn>
+                                </span>
                             </div>
                             <v-divider/>
                         </v-list-tile-content>

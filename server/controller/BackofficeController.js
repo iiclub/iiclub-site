@@ -135,6 +135,7 @@ module.exports = {
                 temp._id = element._id;
                 temp.active = element.active;
                 temp.title = element.title;
+                temp.path = element.images.length >0;
                 properData.push(temp);
             });
 
@@ -286,6 +287,7 @@ module.exports = {
                 temp._id = element._id;
                 temp.level = element.level;
                 temp.name = element.name;
+                temp.path = element.images.length >0;
                 properData.push(temp);
             });
 
