@@ -12,7 +12,7 @@ import { setContext, getLocation, getRouteData } from './utils'
 import { createStore } from './store.js'
 
 /* Plugins */
-import nuxt_plugin_axios_2ab5f49b from 'nuxt_plugin_axios_2ab5f49b' // Source: ./axios.js
+import nuxt_plugin_axios_6a88d70b from 'nuxt_plugin_axios_6a88d70b' // Source: ./axios.js
 import nuxt_plugin_vuetify_e5914fcc from 'nuxt_plugin_vuetify_e5914fcc' // Source: ../plugins/vuetify
 import nuxt_plugin_externalVueCarousal_20a30664 from 'nuxt_plugin_externalVueCarousal_20a30664' // Source: ../plugins/externalVueCarousal.js (ssr: false)
 
@@ -153,7 +153,7 @@ async function createApp (ssrContext) {
 
   // Plugin execution
   
-  if (typeof nuxt_plugin_axios_2ab5f49b === 'function') await nuxt_plugin_axios_2ab5f49b(app.context, inject)
+  if (typeof nuxt_plugin_axios_6a88d70b === 'function') await nuxt_plugin_axios_6a88d70b(app.context, inject)
   if (typeof nuxt_plugin_vuetify_e5914fcc === 'function') await nuxt_plugin_vuetify_e5914fcc(app.context, inject)
   
   if (process.browser) { 

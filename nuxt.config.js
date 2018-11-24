@@ -64,8 +64,8 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    //baseURL : "http://localhost:3000",
-    baseURL : "http://www.iiclub.in",
+    baseURL : "http://localhost:3000",
+    //baseURL : "http://www.iiclub.in",
     credentials : false
   },
 

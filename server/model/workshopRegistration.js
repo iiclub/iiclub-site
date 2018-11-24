@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-var regexUsername = /^[a-zA-Z]{3,30}$/;
+var regexUsername = /^([a-zA-Z])+([a-zA-Z ]){3,30}$/;
 var regexPhone = /^[0-9]{10,10}$/;
 var regexEmail = /^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$/;
 var regexDateofbirth = /^([0-9]{4})-([0-9]{2})-([0-9]{2})$/;

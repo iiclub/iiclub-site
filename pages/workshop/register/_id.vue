@@ -118,7 +118,7 @@
 
 <script>
 
-import Dialogbox from '@/components/common/Dialogbox.vue';
+import Dialogbox from '@/components/common/Dialogboxworkshop.vue';
 export default {
   layout: "frontoffice",
   components:{
