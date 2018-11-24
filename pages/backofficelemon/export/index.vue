@@ -126,7 +126,9 @@ export default {
       exportdata(){
           var fromdate = this.date;
           var todate = this.todate;
-          var url = "http://localhost:3000/backoffice/exportdata";
+          var apiurl = "http://www.iiclub.in";
+          //var url = "http://localhost:3000/backoffice/exportdata";
+          var url = apiurl+"/backoffice/exportdata";
           window.open(url+"?fromdate="+fromdate+"&todate="+todate+"&export="+this.whattoexport, '_blank');
       }
     }
